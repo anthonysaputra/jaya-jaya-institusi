@@ -85,27 +85,32 @@ pip install -r requirements.txt
 - Status Mahasiswa berdasarkan Course bawah
   Ini horizontal bar chart yang pecah data per jurusan/program studi course, nunjukin proporsi Dropout hijau,Enrolled merah muda, Graduate kuning di tiap jurusan. Ini berguna buat lihat jurusan mana yang dropout rate-nya paling tinggi.
 
-link menjalankan dashord
-
-```bash
-http://localhost:3000
-```
+link menjalankan dashord:[http://localhost:3000]
 
 ## Menjalankan Sistem Machine Learning
 
-Jelaskan cara menjalankan protoype sistem machine learning yang telah dibuat. Selain itu, sertakan juga link untuk mengakses prototype tersebut.
+Prototype sistem machine learning pada proyek ini dibangun menggunakan Streamlit, dengan nama aplikasi Jaya Jaya Student Insight. Aplikasi ini berfungsi untuk memprediksi status mahasiswa — apakah Dropout, Enrolled, atau Graduate — berdasarkan data profil, riwayat pendidikan, performa akademik semester 1 & 2, serta kondisi ekonomi yang diinput oleh pengguna pihak akademik kampus.
 
-```
-
-```
+link Streamlitnya:[https://jaya-jaya-institut-dicoding-anthony-saputra.streamlit.app/]
 
 ## Conclusion
 
-Jelaskan konklusi dari proyek yang dikerjakan.
+royek ini berhasil menjawab permasalahan bisnis yang diangkat oleh Jaya Jaya Institut, yaitu tingginya angka mahasiswa yang dropout. Dari hasil eksplorasi data, ditemukan bahwa dari total 4.424 mahasiswa, sebanyak 32,12% berstatus Dropout, 17,95% Enrolled, dan 49,93% Graduate mengonfirmasi bahwa hampir sepertiga mahasiswa tidak berhasil menyelesaikan studinya, sejalan dengan latar belakang masalah yang diangkat di awal proyek.
+Melalui tahap EDA, ditemukan beberapa pola yang konsisten sebagai indikator risiko dropout, di antaranya:
+
+- Performa akademik semester awal (jumlah mata kuliah yang disetujui dan rata-rata nilai di semester 1 & 2) menjadi pembeda paling jelas antara mahasiswa yang dropout dan yang lulus.
+- Status pembayaran uang kuliah (tuition fee) dan status tunggakan (debtor) sangat berkaitan dengan dropout mahasiswa dengan pembayaran tidak lancar atau berstatus debitur menunjukkan proporsi dropout yang jauh lebih tinggi.
+- Kepemilikan beasiswa berasosiasi dengan tingkat bertahan studi yang lebih baik dibanding yang tidak memiliki beasiswa.
+- Terdapat variasi tingkat dropout yang cukup besar antar program studi (course), menunjukkan bahwa risiko dropout tidak merata di semua jurusan.,
+
+dibangun tiga model klasifikasi (Random Forest, LightGBM, dan SVM) untuk memprediksi status mahasiswa ke dalam tiga kelas: Dropout, Enrolled, dan Graduate. Berdasarkan hasil evaluasi pada data uji, Random Forest dipilih, Model ini kemudian disimpan (model/student_dropout_model.pkl) dan diintegrasikan ke dalam prototype aplikasi Streamlit (Jaya Jaya Student Insight), sehingga pihak akademik dapat memasukkan data seorang mahasiswa dan langsung memperoleh prediksi status beserta tingkat keyakinan model.
+Analisis feature importance dari model Random Forest juga memperkuat temuan EDA, di mana fitur-fitur dengan pengaruh terbesar terhadap prediksi adalah jumlah dan nilai mata kuliah yang disetujui di semester 1 & 2, nilai kelulusan (admission grade), usia saat mendaftar, nilai kualifikasi sebelumnya, serta status pembayaran uang kuliah.
+Secara keseluruhan, kombinasi antara dashboard monitoring dan sistem prediksi berbasis machine learning yang dibangun dalam proyek ini memberikan Jaya Jaya Institut sebuah pendekatan data-driven untuk mengidentifikasi mahasiswa berisiko dropout secara lebih dini, sehingga intervensi (bimbingan akademik, keringanan biaya, atau konseling) dapat dilakukan tepat waktu sebelum mahasiswa benar-benar berhenti kuliah.
 
 ### Rekomendasi Action Items
 
 Berikan beberapa rekomendasi action items yang harus dilakukan perusahaan guna menyelesaikan permasalahan atau mencapai target mereka.
 
-- action item 1
-- action item 2
+- Bangun sistem peringatan dini berbasis nilai & progres akademik semester 1, karena performa mata kuliah yang disetujui dan nilai di semester 1 & 2 terbukti menjadi faktor paling berpengaruh terhadap risiko dropout. Mahasiswa dengan jumlah mata kuliah lulus atau nilai yang rendah di semester awal sebaiknya langsung ditandai untuk mendapat pendampingan akademik.
+- Lakukan evaluasi khusus pada program studi dengan tingkat dropout tertinggi, karena dropout rate ternyata bervariasi cukup besar antar jurusan. Institusi bisa menelusuri penyebab spesifik di jurusan-jurusan tersebut .
+- Gunakan dashboard secara berkala sebagai alat monitoring rutin oleh pihak akademik/manajemen, untuk memantau tren dropout rate per semester, per jurusan, dan per status finansial, sehingga kebijakan dapat dievaluasi dan disesuaikan dari waktu ke waktu.
